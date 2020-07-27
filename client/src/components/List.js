@@ -6,7 +6,7 @@ import '../App.css';
 class List extends Component {
   render() {
     return this.props.missings.map((missing) => (
-        <ListElement key={missing.id} missing={missing}/>
+      <ListElement key={missing.id} missing={missing} delMissing={this.props.delMissing}/>
     ));
   }
 }

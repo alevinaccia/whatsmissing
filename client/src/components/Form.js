@@ -14,6 +14,18 @@ class Form extends Component {
 
     send = (e) => {
         e.preventDefault();
+        const url = 'http://localhost:8000';
+        const headers = new Headers();
+        headers.append('message', this.state.message);
+
+        fetch(url, {
+            method : 'POST',
+            headers : headers,
+        }).then(response => response.json())
+        .then(data => {
+            this.props.missings(data);
+            this.setState({message : ''})
+        })
     }
 
     render() {
