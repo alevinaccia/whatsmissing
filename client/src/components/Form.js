@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
+ import 'bootstrap/dist/css/bootstrap.min.css';
+ import '../Main.css';
 
 
 class Form extends Component {
@@ -17,15 +17,21 @@ class Form extends Component {
         const url = 'http://localhost:8000';
         const headers = new Headers();
         headers.append('message', this.state.message);
+        headers.append('code', this.props.code)
 
         fetch(url, {
             method : 'POST',
             headers : headers,
         }).then(response => response.json())
         .then(data => {
-            this.props.missings(data);
+            console.log(Object.values(data))
+            this.props.refreshList(data);
             this.setState({message : ''})
         })
+    }
+
+    formStyle = {
+
     }
 
     render() {
@@ -35,6 +41,7 @@ class Form extends Component {
                     onChange={this.onChange}
                     className="form-control form-control-lg"
                     name="text"
+                    required
                     placeholder="What's missing?">
                 </input>
                 <input className="btn btn-primary" type="submit" />

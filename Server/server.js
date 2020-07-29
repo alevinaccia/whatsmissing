@@ -1,39 +1,48 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
+const db = require('monk')(process.env.MONGO_URI);
 const Missing = require('./missing.js');
+const Code = require('./code.js')
 const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(cors())
 app.use(express.json())
-const all = [];
-
-let id = 0;
-
+let all = db.get('missings');
+let codes = db.get('codes');
 
 app.get('/', function (req, res) {
-  res.send(all);
+  all.find({code : req.headers.code}).then(missings => res.send(missings));
 })
 
 app.post('/', (req, res) => {
-  all.push(new Missing(req.headers.message, id));
-  id++;
-  res.json(all);
+  all.insert(new Missing(req.headers.message, req.headers.code)).then(() => {
+    all = db.get('missings')
+    all.find()
+      .then(missings => res.json(missings));
+  })
+})
+
+app.post('/code', (req, res) => {
+  codes.insert(new Code(req.headers.code)).then(codes.find().then((docs) => {
+    res.json(docs);
+  }))
 })
 
 app.patch('/', (req, res) => {
-  elementToEdit = all.find((element => element.id == req.headers.id));
-  index = all.indexOf(elementToEdit);
-  all[index].completed = !all[index].completed;
-  res.send(all[index]);
+  req.headers.current == 'true' ? (bool = true) : (bool = false)
+  all.findOneAndUpdate({ _id: req.headers._id }, { $set: { completed: !bool } }).then(all.find())
+    .then(missing => res.json(missing));
 })
 
 app.delete('/', (req, res) => {
-  elementToEdit = all.find((element => element.id == req.headers.id));
-  index = all.indexOf(elementToEdit);
-  all.splice(index, 1);
+  all.findOneAndDelete({ _id: req.headers._id }).then(() => {
+    all = db.get('missings');
+    all.find()
+      .then(missings => res.json(missings));
+  })
 
-  res.json(all);
 })
 
 app.listen(PORT, function () {

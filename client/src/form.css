@@ -1,0 +1,15 @@
+form{
+    display : flex;
+    margin: 0 25%;
+}
+
+form input[type='text']{
+    flex : 7;
+    margin-right: 10px;
+}
+
+form input[type='button']{
+    margin: 2px;
+    flex : 3;
+    border: solid 2px black;
+}

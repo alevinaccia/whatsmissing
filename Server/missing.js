@@ -1,7 +1,7 @@
 module.exports = class Missing{
-    constructor(message, id){
+    constructor(message, code){
         this.message = message;
-        this.id = id;
+        this.code = code;
         this.completed = false;
     }
 }

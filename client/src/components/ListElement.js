@@ -1,38 +1,39 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import '../Main.css';
 
 class ListElement extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {missing : props.missing};
+        this.state = { missing: props.missing };
     }
 
-    changeCheck = (id) => {
+    changeCheck = (id, current) => {
         fetch('http://localhost:8000/', {
-            method : 'PATCH',
-            headers : {
-                id : id
+            method: 'PATCH',
+            headers: {
+                _id: id,
+                current: current
             }
         }).then(response => response.json())
-        .then(updatedMissing => this.setState({missing : updatedMissing}));
+            .then(updatedMissing => {
+                this.setState({ missing: updatedMissing })
+            });
     }
 
     render() {
-
-        const {completed, id, message} = this.state.missing;
-
+        const { completed, _id, message } = this.state.missing;
         return (
             <h3 className="listElement">
                 <input type="checkbox"
                     checked={completed}
-                    onChange={this.changeCheck.bind(this, id)}
+                    onChange={this.changeCheck.bind(this, _id, completed)}
                     className="checkBox"
                 />
                 <span className={completed ? ('completed') : ('')}>{message}</span>
-                <input  type="button"
-                    onClick={this.props.delMissing.bind(this, id)}
+                <input type="button"
+                    onClick={this.props.delMissing.bind(this, _id)}
                     value="Remove"
                     className="delBTN btn btn-danger"
                 />
