@@ -2,7 +2,7 @@ h1 {
   text-align: center;
 }
 
-form {
+.mainForm {
   margin-left: 25%;
   margin-right: 25%;
   height: 115px;
@@ -18,25 +18,39 @@ input[type="submit"] {
   margin-top: 10px;
 }
 
-.delBTN{
+.delBTN {
   float: right;
 }
 
-.listElement{
-  margin : 0 25%;
+.listElement {
+  margin: 0 25%;
   padding: 15px;
   background-color: #f4f4f4;
   border-bottom: 1px black solid;
 }
 
-.checkBox{
-  margin-right: 10px ; 
+.checkBox {
+  margin-right: 10px;
 }
 
-.completed{
+.completed {
   text-decoration: line-through;
 }
 
+.footer {
+  position: fixed;
+  padding: 30px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #696969;
+  color: white;
+  text-align: center;
+}
+
+.footerButton{
+  font-size: 2em;
+}
 
 @media only screen and (max-width: 1000px) {
   form {

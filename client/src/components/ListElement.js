@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import '../Main.css';
 
 class ListElement extends Component {
 
@@ -25,17 +23,17 @@ class ListElement extends Component {
     render() {
         const { completed, _id, message } = this.state.missing;
         return (
-            <h3 className="listElement">
+            <h3 className={this.props.style.listElement}>
                 <input type="checkbox"
                     checked={completed}
                     onChange={this.changeCheck.bind(this, _id, completed)}
-                    className="checkBox"
+                    className={this.props.style.checkBox}
                 />
                 <span className={completed ? ('completed') : ('')}>{message}</span>
                 <input type="button"
                     onClick={this.props.delMissing.bind(this, _id)}
                     value="Remove"
-                    className="delBTN btn btn-danger"
+                    className={`${this.props.style.delBTN} btn btn-danger`}
                 />
             </h3>
         );

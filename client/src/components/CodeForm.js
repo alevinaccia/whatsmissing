@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import '../form.css'
+import styles from '../styles/form.module.css'
 
 class CodeForm extends Component {
 
@@ -14,11 +14,11 @@ class CodeForm extends Component {
 
     render() {
         return (
-            <form>
-                <input type="Text" value={this.state.input} onChange={this.update} />
-                <input type="Button" className='btn btn-primary btn-lg disabled' defaultValue="Create"
-                    onClick={this.props.create} />
-                <input type="Button" className='btn btn-secondary btn-lg disabled' defaultValue="Enter"
+            <form className={styles.codeForm}>
+                <input type="Text" value={this.state.input} className={styles.codeInputText} onChange={this.update} /><br></br>
+                <input type="Button" className={`btn btn-primary btn-lg disabled ${styles.codeInputBTN}`} defaultValue="Create"
+                    onClick={this.props.create.bind(this, this.state.input)} />
+                <input type="Button" className={`btn btn-secondary btn-lg disabled ${styles.codeInputBTN2}`} defaultValue="Enter"
                     onClick={this.props.enter.bind(this, this.state.input)} />
             </form>
         );

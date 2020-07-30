@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
- import 'bootstrap/dist/css/bootstrap.min.css';
- import '../Main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from '../styles/Main.module.css';
 
 
 class Form extends Component {
@@ -24,7 +24,6 @@ class Form extends Component {
             headers : headers,
         }).then(response => response.json())
         .then(data => {
-            console.log(Object.values(data))
             this.props.refreshList(data);
             this.setState({message : ''})
         })
@@ -36,7 +35,7 @@ class Form extends Component {
 
     render() {
         return (
-            <form onSubmit={this.send}>
+            <form className={styles.mainForm} onSubmit={this.send}>
                 <input value={this.state.message}
                     onChange={this.onChange}
                     className="form-control form-control-lg"
